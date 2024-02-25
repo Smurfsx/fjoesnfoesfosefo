@@ -43,12 +43,31 @@ import random
 import requests
 from interactions import *
 
+from flask import Flask, render_template
+from threading import Thread
 
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return '''<body style="margin: 0; padding: 0;">
+    <iframe width="100%" height="100%" src="https://axocoder.vercel.app/" frameborder="0" allowfullscreen></iframe>
+  </body>'''
+
+def run():
+    app.run(host='0.0.0.0', port=8080)
+
+def keep_alive():  
+    t = Thread(target=run)
+    t.start()
+
+keep_alive()
+print("Server Running Because of Axo")
 
 now_utc = datetime.utcnow()
 desired_timezone = 'Asia/Bangkok'  # เปลี่ยนตามที่ต้องการ
 OWNERS = (1168831563086172212)
-token = "MTIxMTI1NzIyOTM3ODg1NDkyMg.GDNpMY.AEqzaeARRg5XmtfQzI2bD_QdyHaWEnvOlhCSM4"
+token = "MTIxMTI1NzIyOTM3ODg1NDkyMg.G4C3IT.YkgH55MdHywYf17hf7-Otr_hizD4nflvDo1jik"
 # แปลงเวลาปัจจุบันเป็น time zone ที่ต้องการ
 now_desired_timezone = now_utc.replace(tzinfo=pytz.utc).astimezone(pytz.timezone(desired_timezone))
 formatted_time = now_desired_timezone.strftime("%Y-%m-%d %H:%M:%S")  
